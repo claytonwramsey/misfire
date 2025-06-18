@@ -47,14 +47,14 @@ impl PandaSim {
         };
     pub fn new(client: &mut PhysicsClient, offset: Vector3<f64>) -> Result<Self, Error> {
         let transform = Isometry3::new(
-            Vector3::new(0., 0., -0.6) + offset.clone(),
+            Vector3::new(0., 0., -0.6) + offset,
             Rotation3::from(UnitQuaternion::from_quaternion(Quaternion::new(
                 0.5, -0.5, -0.5, -0.5,
             )))
             .scaled_axis(),
         );
         let urdf_options = UrdfOptions {
-            base_transform: transform.clone(),
+            base_transform: transform,
             flags: LoadModelFlags::URDF_ENABLE_CACHED_GRAPHICS_SHAPES,
             ..Default::default()
         };
@@ -62,7 +62,7 @@ impl PandaSim {
 
         let transform = Isometry3::translation(offset.x + 0.1, offset.y + 0.3, offset.z - 0.5);
         let urdf_options = UrdfOptions {
-            base_transform: transform.clone(),
+            base_transform: transform,
             flags: LoadModelFlags::URDF_ENABLE_CACHED_GRAPHICS_SHAPES,
             ..Default::default()
         };
@@ -70,7 +70,7 @@ impl PandaSim {
 
         let transform = Isometry3::translation(offset.x - 0.1, offset.y + 0.3, offset.z - 0.5);
         let urdf_options = UrdfOptions {
-            base_transform: transform.clone(),
+            base_transform: transform,
             flags: LoadModelFlags::URDF_ENABLE_CACHED_GRAPHICS_SHAPES,
             ..Default::default()
         };
@@ -78,7 +78,7 @@ impl PandaSim {
 
         let transform = Isometry3::translation(offset.x + 0.1, offset.y + 0.3, offset.z - 0.7);
         let urdf_options = UrdfOptions {
-            base_transform: transform.clone(),
+            base_transform: transform,
             flags: LoadModelFlags::URDF_ENABLE_CACHED_GRAPHICS_SHAPES,
             ..Default::default()
         };
@@ -86,7 +86,7 @@ impl PandaSim {
 
         let transform = Isometry3::translation(offset.x, offset.y + 0.3, offset.z - 0.6);
         let urdf_options = UrdfOptions {
-            base_transform: transform.clone(),
+            base_transform: transform,
             flags: LoadModelFlags::URDF_ENABLE_CACHED_GRAPHICS_SHAPES,
             ..Default::default()
         };
@@ -94,7 +94,7 @@ impl PandaSim {
 
         let transform = Isometry3::translation(offset.x, offset.y + 0.3, offset.z - 0.5);
         let urdf_options = UrdfOptions {
-            base_transform: transform.clone(),
+            base_transform: transform,
             flags: LoadModelFlags::URDF_ENABLE_CACHED_GRAPHICS_SHAPES,
             ..Default::default()
         };
@@ -102,18 +102,18 @@ impl PandaSim {
 
         let transform = Isometry3::translation(offset.x, offset.y + 0.3, offset.z - 0.7);
         let urdf_options = UrdfOptions {
-            base_transform: transform.clone(),
+            base_transform: transform,
             flags: LoadModelFlags::URDF_ENABLE_CACHED_GRAPHICS_SHAPES,
             ..Default::default()
         };
         client.load_urdf("sphere_small.urdf", urdf_options)?;
         let cube_start_position = Isometry3::new(
-            offset.clone(),
+            offset,
             UnitQuaternion::from_euler_angles(-PI / 2., 0., 0.).scaled_axis(),
         );
         let urdf_options = UrdfOptions {
             use_fixed_base: true,
-            base_transform: cube_start_position.clone(),
+            base_transform: cube_start_position,
             flags: LoadModelFlags::URDF_ENABLE_CACHED_GRAPHICS_SHAPES,
             ..Default::default()
         };

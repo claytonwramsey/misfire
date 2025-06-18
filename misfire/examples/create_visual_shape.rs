@@ -22,7 +22,7 @@ fn main() -> Result<()> {
         },
         VisualShapeOptions {
             specular_colors: [0.4, 0.4, 0.],
-            frame_offset: shift.clone(),
+            frame_offset: shift,
             ..Default::default()
         },
     )?;

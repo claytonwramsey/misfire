@@ -156,7 +156,7 @@ fn test_get_joint_info() {
     slice_compare(&[0.; 3], joint_info.joint_axis.as_slice(), 1e-10);
     println!("{}", joint_info.parent_frame_pose.rotation.quaternion());
     slice_compare(
-        &[0.2999999996780742, 0., -1.3898038463944216e-05],
+        &[0.2999999996780742, 0., -1.389_803_846_394_421_6e-5],
         joint_info.parent_frame_pose.translation.vector.as_slice(),
         1e-7,
     );
@@ -199,7 +199,7 @@ fn test_get_joint_info() {
 pub fn set_joint_positions(client: &mut PhysicsClient, robot: BodyId, position: &[f64]) {
     let num_joints = client.get_num_joints(robot);
     assert_eq!(num_joints, position.len());
-    let indices = (0..num_joints).into_iter().collect::<Vec<usize>>();
+    let indices = (0..num_joints).collect::<Vec<usize>>();
     let zero_vec = vec![0.; num_joints];
     let position_gains = vec![1.; num_joints];
     let velocity_gains = vec![0.3; num_joints];
@@ -223,7 +223,7 @@ pub fn get_joint_states(
     robot: BodyId,
 ) -> (Vec<f64>, Vec<f64>, Vec<f64>) {
     let num_joints = client.get_num_joints(robot);
-    let indices = (0..num_joints).into_iter().collect::<Vec<usize>>();
+    let indices = (0..num_joints).collect::<Vec<usize>>();
     let joint_states = client.get_joint_states(robot, indices.as_slice()).unwrap();
     let pos = joint_states
         .iter()
@@ -245,10 +245,9 @@ pub fn get_motor_joint_states(
     robot: BodyId,
 ) -> (Vec<f64>, Vec<f64>, Vec<f64>) {
     let num_joints = client.get_num_joints(robot);
-    let indices = (0..num_joints).into_iter().collect::<Vec<usize>>();
+    let indices = (0..num_joints).collect::<Vec<usize>>();
     let joint_states = client.get_joint_states(robot, indices.as_slice()).unwrap();
     let joint_infos: Vec<JointInfo> = (0..num_joints)
-        .into_iter()
         .map(|y| client.get_joint_info(robot, y))
         .collect::<Vec<JointInfo>>();
     let joint_states = joint_states
@@ -421,49 +420,49 @@ fn test_get_link_state() {
     let m_world_linear_velocity = [-18.107084901818524, 161.0722445230232, 0.0];
     let m_world_angular_velocity = [0.0, 0.0, 131.10623082146793];
     slice_compare(
-        &result.world_pose.translation.vector.as_slice(),
+        result.world_pose.translation.vector.as_slice(),
         &m_world_position,
         1e-6,
     );
     slice_compare(
-        &result.world_pose.rotation.coords.as_slice(),
+        result.world_pose.rotation.coords.as_slice(),
         &m_world_orientation,
         1e-6,
     );
     slice_compare(
-        &result.local_inertial_pose.translation.vector.as_slice(),
+        result.local_inertial_pose.translation.vector.as_slice(),
         &m_local_inertial_position,
         1e-6,
     );
     slice_compare(
-        &result.local_inertial_pose.rotation.coords.as_slice(),
+        result.local_inertial_pose.rotation.coords.as_slice(),
         &m_local_inertial_orientation,
         1e-6,
     );
     slice_compare(
-        &result.world_link_frame_pose.translation.vector.as_slice(),
+        result.world_link_frame_pose.translation.vector.as_slice(),
         &m_world_link_frame_position,
         1e-6,
     );
     slice_compare(
-        &result.world_link_frame_pose.rotation.coords.as_slice(),
+        result.world_link_frame_pose.rotation.coords.as_slice(),
         &m_world_link_frame_orientation,
         1e-6,
     );
     slice_compare(
-        &result.get_linear_world_velocity().unwrap().as_slice(),
+        result.get_linear_world_velocity().unwrap().as_slice(),
         &m_world_linear_velocity,
         1e-5,
     );
     slice_compare(
-        &result.get_angular_world_velocity().unwrap().as_slice(),
+        result.get_angular_world_velocity().unwrap().as_slice(),
         &m_world_angular_velocity,
         1e-6,
     );
     let link_states = p
         .get_link_states(kuka_id, &[kuka_end_effector_index], true, true)
         .unwrap();
-    let link_state_from_link_states = link_states.get(0).unwrap();
+    let link_state_from_link_states = link_states.first().unwrap();
     slice_compare(
         link_state_from_link_states
             .world_link_frame_pose
@@ -627,7 +626,7 @@ impl PandaSim {
 
         let urdf_options = UrdfOptions {
             use_fixed_base: true,
-            base_transform: cube_start_position.clone(),
+            base_transform: cube_start_position,
             flags: LoadModelFlags::URDF_ENABLE_CACHED_GRAPHICS_SHAPES,
             ..Default::default()
         };
@@ -705,7 +704,7 @@ impl PandaSim {
             -0.6766534143669977,
             -0.011150292631844208,
             -0.11222097289908575,
-            7.963273507305265e-05,
+            7.963_273_507_305_265e-5,
             0.021288781819096075,
             -0.021288781819096075,
             1.099094168104455,
@@ -733,8 +732,8 @@ impl PandaSim {
             0.028341271915447625,
             -0.0001434455846943853,
             0.0037745850335795,
-            1.8885374235014403e-05,
-            -1.8885374235014403e-05,
+            1.888_537_423_501_440_3e-5,
+            -1.888_537_423_501_440_3e-5,
             0.015010766618204326,
             -0.11222097289908575,
             0.0367718209930567,
@@ -745,7 +744,7 @@ impl PandaSim {
             -0.018417574890008004,
             0.018417574890008004,
             -0.00419273685297444,
-            7.963273507305265e-05,
+            7.963_273_507_305_265e-5,
             -0.0038394168220030464,
             0.0005209277856703768,
             0.0037745850335795,
@@ -757,7 +756,7 @@ impl PandaSim {
             0.021288781819096075,
             -0.008321730809750807,
             -0.04891378328717881,
-            1.8885374235014403e-05,
+            1.888_537_423_501_440_3e-5,
             -0.018417574890008004,
             0.0,
             0.1,
@@ -766,7 +765,7 @@ impl PandaSim {
             -0.021288781819096075,
             0.008321730809750807,
             0.04891378328717881,
-            -1.8885374235014403e-05,
+            -1.888_537_423_501_440_3e-5,
             0.018417574890008004,
             0.0,
             0.0,
@@ -828,21 +827,21 @@ fn compute_view_matrix_from_yaw_pitch_roll_test() {
         false,
     );
     let desired_matrix = [
-        -0.9999939799308777,
-        -1.8276923583471216e-05,
-        -0.0034906466025859118,
+        -0.999_994,
+        -1.827_692_4e-5,
+        -0.003_490_646_6,
         0.0,
-        2.2373569663614035e-10,
-        0.9999864101409912,
-        -0.005235963501036167,
+        2.237_357e-10,
+        0.999_986_4,
+        -0.005_235_963_5,
         0.0,
-        0.003490694332867861,
-        -0.00523593183606863,
-        -0.9999802708625793,
+        0.003_490_694_3,
+        -0.005_235_932,
+        -0.999_980_3,
         0.0,
-        0.9999939799308777,
-        1.8277205526828766e-05,
-        -0.5965093970298767,
+        0.999_994,
+        1.827_720_6e-5,
+        -0.596_509_4,
         1.0,
     ];
     slice_compare_f32(view_matrix.as_slice(), &desired_matrix, 1e-7);
@@ -851,21 +850,21 @@ fn compute_view_matrix_from_yaw_pitch_roll_test() {
 fn compute_projection_matrix_fov_test() {
     let projection_matrix = PhysicsClient::compute_projection_matrix_fov(0.4, 0.6, 0.2, 0.6);
     let desired_matrix = [
-        477.4628601074219,
+        477.462_86,
         0.0,
         0.0,
         0.0,
         0.0,
-        286.47772216796875,
+        286.477_72,
         0.0,
         0.0,
         0.0,
         0.0,
-        -1.9999998807907104,
+        -1.999_999_9,
         -1.0,
         0.0,
         0.0,
-        -0.5999999642372131,
+        -0.599_999_96,
         0.0,
     ];
     slice_compare_f32(projection_matrix.as_slice(), &desired_matrix, 1e-7);
@@ -879,16 +878,16 @@ fn compute_projection_matrix_test() {
         0.0,
         0.0,
         0.0,
-        4.000000476837158,
+        4.000_000_5,
         0.0,
         0.0,
         3.0,
-        7.000000953674316,
-        -1.9999998807907104,
+        7.000_001,
+        -1.999_999_9,
         -1.0,
         0.0,
         0.0,
-        -0.5999999642372131,
+        -0.599_999_96,
         0.0,
     ];
     slice_compare_f32(projection_matrix.as_slice(), &desired_matrix, 1e-7);

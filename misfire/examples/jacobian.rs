@@ -8,7 +8,7 @@ use anyhow::Result;
 pub fn set_joint_positions(client: &mut PhysicsClient, robot: BodyId, position: &[f64]) {
     let num_joints = client.get_num_joints(robot);
     assert_eq!(num_joints, position.len());
-    let indices = (0..num_joints).into_iter().collect::<Vec<usize>>();
+    let indices = (0..num_joints).collect::<Vec<usize>>();
     let zero_vec = vec![0.; num_joints];
     let position_gains = vec![1.; num_joints];
     let velocity_gains = vec![0.3; num_joints];
@@ -32,7 +32,7 @@ pub fn get_joint_states(
     robot: BodyId,
 ) -> (Vec<f64>, Vec<f64>, Vec<f64>) {
     let num_joints = client.get_num_joints(robot);
-    let indices = (0..num_joints).into_iter().collect::<Vec<usize>>();
+    let indices = (0..num_joints).collect::<Vec<usize>>();
     let joint_states = client.get_joint_states(robot, indices.as_slice()).unwrap();
     let pos = joint_states
         .iter()
@@ -54,10 +54,9 @@ pub fn get_motor_joint_states(
     robot: BodyId,
 ) -> (Vec<f64>, Vec<f64>, Vec<f64>) {
     let num_joints = client.get_num_joints(robot);
-    let indices = (0..num_joints).into_iter().collect::<Vec<usize>>();
+    let indices = (0..num_joints).collect::<Vec<usize>>();
     let joint_states = client.get_joint_states(robot, indices.as_slice()).unwrap();
     let joint_infos: Vec<JointInfo> = (0..num_joints)
-        .into_iter()
         .map(|y| client.get_joint_info(robot, y))
         .collect::<Vec<JointInfo>>();
     let joint_states = joint_states

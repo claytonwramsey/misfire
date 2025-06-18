@@ -418,7 +418,7 @@ impl PhysicsClient {
 
             if options.global_scaling > 0.0 {
                 let _ret =
-                    ffi::b3LoadUrdfCommandSetGlobalScaling(command, options.global_scaling as f64);
+                    ffi::b3LoadUrdfCommandSetGlobalScaling(command, options.global_scaling);
             }
 
             let status_handle = ffi::b3SubmitClientCommandAndWaitStatus(self.handle, command);
@@ -2985,7 +2985,7 @@ impl PhysicsClient {
                             heightfield_data.as_mut_slice().as_mut_ptr(),
                             num_heightfield_rows as i32,
                             num_heightfield_columns as i32,
-                            replace_heightfield.unwrap_or_else(|| CollisionId(-1)).0,
+                            replace_heightfield.unwrap_or(CollisionId(-1)).0,
                         );
                     }
                 }
@@ -3351,7 +3351,6 @@ impl PhysicsClient {
                 let uid = ffi::b3GetStatusBodyIndex(status_handle);
                 let num_batch_positions = batch_positions.len() as i32;
                 let out = (0..num_batch_positions)
-                    .into_iter()
                     .map(|x| BodyId(uid - num_batch_positions + x + 1))
                     .collect();
                 return Ok(out);
