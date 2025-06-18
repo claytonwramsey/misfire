@@ -95,7 +95,7 @@ path = "examples/inverse_dynamics.rs"
 nalgebra = { version = "0.33", default-features = false, features = ["std"] }
 image = { version = "0.25.6", default-features = false }
 misfire-sys = { path = "../misfire-sys" }
-bitflags = { version = "2.9.1", default-features = false }
+bitflags = { version = "2", default-features = false }
 
 [dev-dependencies]
 anyhow = { version = "1.0", default-features = false }
