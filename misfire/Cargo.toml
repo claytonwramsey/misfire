@@ -92,12 +92,14 @@ name = "inverse_dynamics"
 path = "examples/inverse_dynamics.rs"
 
 [dependencies]
-nalgebra = "0.33"
-image = "0.25.6"
-misfire-sys = { version = "0.1.0-alpha-2", path = "../misfire-sys" }
-bitflags = "2.9.1"
+nalgebra = { version = "0.33", default-features = false, features = ["std"] }
+image = { version = "0.25.6", default-features = false }
+misfire-sys = { path = "../misfire-sys" }
+bitflags = { version = "2.9.1", default-features = false }
 
 [dev-dependencies]
-anyhow = "1.0"
-rand = "0.9.1"
-structopt = "0.3"
+anyhow = { version = "1.0", default-features = false }
+rand = { version = "0.9.1", default-features = false, features = [
+    "thread_rng",
+] }
+structopt = { version = "0.3", default-features = false }
