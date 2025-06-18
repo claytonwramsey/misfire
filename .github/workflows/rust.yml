@@ -23,5 +23,5 @@ jobs:
     - name: Check Format
       run: cargo fmt -- --check
     - name: Run Tests
-      run: cargo test -p rubullet -- --test-threads=1
+      run: cargo test -p misfire
       

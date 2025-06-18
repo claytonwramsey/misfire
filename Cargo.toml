@@ -1,5 +1,2 @@
 [workspace]
-members = [
-    "rubullet",
-    "rubullet-sys",
-]
+members = ["misfire", "misfire-sys"]
