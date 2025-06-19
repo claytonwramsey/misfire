@@ -24,7 +24,6 @@ exclude = [
 
 [lib]
 name = "misfire_sys"
-src = "src/lib.rs"
 
 
 [build-dependencies]
